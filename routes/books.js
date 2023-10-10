@@ -68,6 +68,15 @@ router.post("/", upload.single("cover"), async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  try {
+    const book = await Book.findById(req.params.id).populate("author").exec();
+    res.render("books/show", { book: book });
+  } catch {
+    res.redirect("/)");
+  }
+});
+
 function removeBookCover(fileName) {
   fs.unlink(path.join(uploadPath, fileName), (err) => {
     if (err) console.error(err);
