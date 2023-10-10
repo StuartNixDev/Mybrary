@@ -92,7 +92,11 @@ router.delete("/:id", async (req, res) => {
     if (author == null) {
       res.redirect("/");
     } else {
-      res.redirect(`/authors/${author.id}`);
+      //res.redirect(`/authors/${author.id}`);
+      res.render(`authors/edit`, {
+        author: author,
+        errorMessage: "Author still has books on the system, cannot delete.",
+      });
     }
   }
 });
